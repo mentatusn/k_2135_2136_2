@@ -54,6 +54,54 @@ internal class MainActivity : AppCompatActivity() {
             WeatherType.SNOWY -> TODO()
             WeatherType.HAILY -> TODO()
         }
+
+        /*циклы*/
+        val daysOfWeek = listOf("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
+        Log.d("@@@","-------------")
+        daysOfWeek.forEach {
+            Log.d("@@@","$it")
+        }
+        Log.d("@@@","-------------")
+        repeat(daysOfWeek.size) {
+            Log.d("@@@","${daysOfWeek[it]}")
+        }
+        Log.d("@@@","-------------")
+        for(i in daysOfWeek){
+            Log.d("@@@","$i ")
+        }
+        Log.d("@@@","-------------")
+        for(i in daysOfWeek.indices){
+            Log.d("@@@","${daysOfWeek[i]}")
+        }
+
+        Log.d("@@@","-------------")
+        for(i in 0.. daysOfWeek.size-1){
+            Log.d("@@@","${daysOfWeek[i]}")
+        }
+        Log.d("@@@","-------------")
+        for(i in 0 until daysOfWeek.size){
+            Log.d("@@@","${daysOfWeek[i]}")
+        }
+
+        Log.d("@@@","-------------")
+        for(i in daysOfWeek.size-1 downTo 0){
+            Log.d("@@@","${daysOfWeek[i]}")
+        }
+
+        Log.d("@@@","-------------")
+        for(i in daysOfWeek.size-1 until 0 step 1){ // TODO что-то странное
+            Log.d("@@@","${daysOfWeek[i]}")
+        }
+        var counter = daysOfWeek.size-1
+        while (--counter>0){
+            Log.d("@@@","${daysOfWeek[counter]}")
+        }
+
+        counter = daysOfWeek.size-1
+        do{
+            Log.d("@@@","${daysOfWeek[counter]}")
+        }while (--counter>0)
+
     }
 
     enum class WeatherType {
