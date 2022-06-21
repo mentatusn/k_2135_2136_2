@@ -19,7 +19,6 @@ internal class MainActivity : AppCompatActivity() {
 
             }
         })
-        
         val field4 = 1..100
         val field5 = 5
         val WTV = when (field5) {
