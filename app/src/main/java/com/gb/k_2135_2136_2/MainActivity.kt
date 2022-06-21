@@ -1,12 +1,10 @@
 package com.gb.k_2135_2136_2
 
 import android.content.Context
-import android.content.SyncRequest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
-import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,27 +12,46 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val field1 = 5
-        var field2 = 5
 
-        field2 = 235
 
-        val test1:Test = Test()
-        test1.name()
+
+
+        val test:Test = Test()
+        val newTest = NewTest("","")
+        test.name()
+        Log.d("@@@","${newTest is NewTest}")// instanceOf
+        newTest.newField = "srgerwg"
+        Log.d("@@@@",newTest.newField)// cast
     }
 }
 
 //class Test constructor(val vali: Int,var vari: Int){}
-class Test @JvmOverloads constructor() {
+open class Test() {
 
     constructor(field: String):this()
     constructor(field: String,field2: String):this(field)
     constructor(field: String,field2: String,field3: String):this(field,field2)
 
-    private lateinit var vali: String
+    private lateinit var valI: String
     //var vari: Int
     fun name(){
-        vali = "какое-то значение"
-        Log.d("@@@",vali)
+        valI = "какое-то значение"
+        Log.d("@@@",valI)
+    }
+}
+
+class NewTest(field0: String,field2: String):Test(field0,field2){
+    var newField:String = ""
+    get() {
+        return "$field get"
+    }
+    set(value) {
+        field = "$value set"
+    }
+
+
+    init{
+        newField = "newField "
     }
 }
 
