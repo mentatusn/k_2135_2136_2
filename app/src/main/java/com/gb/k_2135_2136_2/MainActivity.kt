@@ -6,17 +6,20 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 
+
 internal class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val field1 = 5
         val test:Test = Test()
-        val newTest = NewTest("","")
+        val newTest = NewTest("", "")
         test.name()
         Log.d("@@@","${newTest is NewTest}")// instanceOf
         newTest.newField = "srgerwg"
         Log.d("@@@@",newTest.newField)// cast
+        NewTest.staticField
+        SingleNewTest.protString
     }
 }
 
@@ -37,6 +40,9 @@ open class Test() {
     }
 }
 
+object SingleNewTest{
+    public val protString:String=""
+}
 class NewTest(field0: String,field2: String):Test(field0,field2){
 
     public override val protString:String=""
@@ -52,6 +58,10 @@ class NewTest(field0: String,field2: String):Test(field0,field2){
 
     init{
         newField = "newField "
+    }
+
+    companion object {
+        const val staticField = "erhrw6j"
     }
 }
 
