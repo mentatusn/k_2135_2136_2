@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 
 
@@ -13,60 +14,115 @@ internal class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        findViewById<AppCompatButton>(R.id.btn).setOnClickListener(object : View.OnClickListener{
+        findViewById<AppCompatButton>(R.id.btn).setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
 
             }
-        } )
+        })
+        val field4 = 1..100
+        val field5 = 5
+        val WTV = when (field5) {
+            in field4 -> {
+                "входит"
+            }
+            else -> {
+                "не входит"
+            }
+        }
 
-        val dataClass1= NoteKotlin("ewrhru","wefgweg",R.color.black)
+        val dataClass1 = NoteKotlin("ewrhru", "wefgweg", R.color.black)
         val dataClass2 = dataClass1.copy(color = R.color.teal_200, note = "fdsghderh")
 
-        val andrej = object  {
+        val andrej = object {
             val name = "Andrej"
             var age = 20
         }
-        andrej.age= 21
+        andrej.age = 21
         //View.OnClickListener
 
+        var result = ""
+        myToStringJava(andrej.age)
 
+        val enumEl = WeatherType.CLOUDY
+        val today = when (enumEl) {
+            WeatherType.SUNNY -> TODO()
+            WeatherType.RAINY -> TODO()
+            WeatherType.CLOUDY -> {
+                "облачно"
+            }
+            WeatherType.MISTY -> TODO()
+            WeatherType.SNOWY -> TODO()
+            WeatherType.HAILY -> TODO()
+        }
+    }
+
+    enum class WeatherType {
+        SUNNY,
+        RAINY,
+        CLOUDY,
+        MISTY,
+        SNOWY,
+        HAILY
+    }
+
+
+    fun myToStringJava(age: Int): String { // java подход
+        var result = ""
+        if (age == 20) {
+            result = "двадцать"
+        } else {
+            result = "не двадцать"
+        }
+        return result
+    }
+
+    fun myToStringKotlin(age: Int): String { // java подход
+        return if (age == 20) {
+            "двадцать"
+            "двадцать";
+            "двадцать"
+        } else {
+            "не двадцать"
+        }
     }
 }
 
 //class Test constructor(val vali: Int,var vari: Int){}
 open class Test() {
 
-    protected open val protString =""
+    protected open val protString = ""
 
-    constructor(field: String):this()
-    constructor(field: String,field2: String):this(field)
-    constructor(field: String,field2: String,field3: String):this(field,field2)
+    constructor(field: String) : this()
+    constructor(field: String, field2: String) : this(field)
+    constructor(field: String, field2: String, field3: String) : this(field, field2)
 
     private lateinit var valI: String
+
     //var vari: Int
-    fun name(){
+    fun name() {
         valI = "какое-то значение"
-        Log.d("@@@",valI)
+        Log.d("@@@", valI)
     }
 }
 
-object SingleNewTest{
-    public val protString:String=""
+object SingleNewTest {
+    public val protString: String = ""
 }
-class NewTest(field0: String,field2: String):Test(field0,field2){
 
-    public override val protString:String=""
+class NewTest(field0: String, field2: String) : Test(field0, field2) {
 
-    var newField:String = ""
-    get() {
-        return "$field get"
-    }
-    set(value) {
-        field = "$value set"
-    }
+    public override val protString: String = ""
+
+    var newField: String = ""
+        get() {
+            return "$field get"
+        }
+        set(value) {
+            field = "$value set"
+        }
 
 
-    init{
+    init {
         newField = "newField "
     }
 
@@ -76,4 +132,8 @@ class NewTest(field0: String,field2: String):Test(field0,field2){
 }
 
 
-class Button @JvmOverloads constructor(context: Context,attributeSet: AttributeSet?=null,defStyleAttr:Int=0)
+class Button @JvmOverloads constructor(
+    context: Context,
+    attributeSet: AttributeSet? = null,
+    defStyleAttr: Int = 0
+)
