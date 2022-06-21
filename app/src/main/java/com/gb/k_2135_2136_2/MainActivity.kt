@@ -5,21 +5,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
+import android.view.View
+import androidx.appcompat.widget.AppCompatButton
 
 
 internal class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val field1 = 5
-        val test:Test = Test()
-        val newTest = NewTest("", "")
-        test.name()
-        Log.d("@@@","${newTest is NewTest}")// instanceOf
-        newTest.newField = "srgerwg"
-        Log.d("@@@@",newTest.newField)// cast
-        NewTest.staticField
-        SingleNewTest.protString
+        findViewById<AppCompatButton>(R.id.btn).setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+
+            }
+        } )
+
+        val dataClass1= NoteKotlin("ewrhru","wefgweg",R.color.black)
+        val dataClass2 = dataClass1.copy(color = R.color.teal_200, note = "fdsghderh")
+
+        val andrej = object  {
+            val name = "Andrej"
+            var age = 20
+        }
+        andrej.age= 21
+        //View.OnClickListener
+
+
     }
 }
 
