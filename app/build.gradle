@@ -6,6 +6,11 @@ plugins {
 android {
     compileSdk 32
 
+    viewBinding {
+        enabled = true
+    }
+
+
     defaultConfig {
         applicationId "com.gb.k_2135_2136_2"
         minSdk 24
