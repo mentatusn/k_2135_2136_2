@@ -1,12 +1,11 @@
 package com.gb.k_2135_2136_2
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 
 
@@ -16,7 +15,7 @@ internal class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<AppCompatButton>(R.id.btn).setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                
+
             }
         })
         val field4 = 1..100
