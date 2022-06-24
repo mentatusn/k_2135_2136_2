@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.ButtonBarLayout
 import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
+import com.gb.k_2135_2136_2.view.weatherlist.WeatherListFragment
 
 
 internal class MainActivity : AppCompatActivity() {
@@ -19,10 +20,10 @@ internal class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.myRoot)
-        //setContentView(R.layout.activity_main)
-        binding.btn.text = "Change"
-        //findViewById<Button>(R.id.btn).text = "Change"
 
+        if(savedInstanceState==null){
+            supportFragmentManager.beginTransaction().replace(R.id.container,WeatherListFragment.newInstance()).commit()
+        }
     }
 
 }
