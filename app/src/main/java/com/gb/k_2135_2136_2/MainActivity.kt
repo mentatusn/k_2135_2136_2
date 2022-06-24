@@ -16,7 +16,6 @@ internal class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         findViewById<AppCompatButton>(R.id.btn).setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-
             }
         })
         val field4 = 1..100
