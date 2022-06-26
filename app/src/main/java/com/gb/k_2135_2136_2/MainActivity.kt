@@ -19,7 +19,7 @@ internal class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().replace(R.id.container,WeatherListFragment.newInstance()).commit()
         }
 
-        Lesson3.startLesson()
+        Lesson3.fooAdv()
     }
 
 }

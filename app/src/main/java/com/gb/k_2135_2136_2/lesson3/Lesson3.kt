@@ -1,6 +1,15 @@
 package com.gb.k_2135_2136_2.lesson3
 
-object Lesson3 {
+
+interface TestableKotlin {
+    fun foo()
+    var field:String
+    fun fooAdv(){
+        field = ""
+    }
+}
+
+object Lesson3:TestableKotlin {
 
 
     ///lateinit var i:Int
@@ -12,15 +21,60 @@ object Lesson3 {
         testKotlin = Test()
     }
 
-    fun startLesson() {
 
+    fun startLessonInterface() {
+        //val callback = TestableKotlin { }
+        val callbackJava = TestableJava { }
+    }
+
+    fun startLessonCollections() {
+        fooAdv()
+        var phraseArray = arrayOf("I", "love", "Kotlin")
+        var phraseList = listOf("I", "love", "Kotlin")
+        var numList = listOf(3, 5, 2, 9, 45, 23, 1)
+        val phraseListMutable = mutableListOf("I", "love", "Kotlin")
+        var phraseMap = mapOf("I" to "2", "love" to "2", "Kotlin" to "2")
+
+
+        phraseList = phraseList.toMutableList()
+        phraseListMutable.add("")
+        phraseListMutable.removeAt(0)
+
+        val newFilteredPhraseList = phraseList.filter { it.length > 3 }
+        val newList = phraseList.map { "$it," }
+        val newFilteredNumList = numList.sorted()
+        val first = numList.first()
+        val last = numList.last()
+
+        val lat: Double = 1.0
+        val lon: Double = 2.0
+
+        val location = Pair(lat, lon)
+        location.first
+        location.second
+        val locationAnotherOne = lat to lon
+        locationAnotherOne.first
+        locationAnotherOne.second
+    }
+
+    fun startLesson(): Unit {
+        val anyLink: Any = testKotlin
+        (anyLink as Test).fooRun()
         //val strange: Test = null!! // однажды Хемингуэй поспорил...
 
+        /*
+        :Nothing - если ничего не планировали возвращать
+        throw IllegalStateException()
+        while(true){
+        }
+        startLesson()*/
         testJava = null
         if (testJava != null) {
-            testJava = null // хоть senior из джавы и пишут везде if (testJava != null), но это не гарантия
+            testJava =
+                null // хоть senior из джавы и пишут везде if (testJava != null), но это не гарантия
             val response: String? = testJava?.serverResponse()
-            val responseShoot: String = testJava!!.serverResponse() // никто не запретит сделать глупость !!
+            val responseShoot: String =
+                testJava!!.serverResponse() // никто не запретит сделать глупость !!
             val responseKotlin: String = response ?: "none" // челка сверху
         }
 
@@ -38,7 +92,8 @@ object Lesson3 {
         testKotlin = testJava ?: Test() // челка сверху
 
         testKotlin = if (testJava != null) {
-            testJava = null // хоть senior из джавы и пишут везде if (testJava != null), но это не гарантия
+            testJava =
+                null // хоть senior из джавы и пишут везде if (testJava != null), но это не гарантия
             testJava!!//nullpointer
         } else {
             Test()
@@ -63,5 +118,13 @@ object Lesson3 {
     fun fooRun() {
         foo(null!!)
     }
+
+    override fun foo() {
+        TODO("Not yet implemented")
+    }
+
+    override var field: String
+        get() = TODO("Not yet implemented")
+        set(value) {}
 
 }

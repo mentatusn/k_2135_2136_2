@@ -22,3 +22,7 @@ public class Test {
 
 
 }
+
+interface TestableJava{
+    void foo();
+}
