@@ -1,6 +1,7 @@
 package com.gb.k_2135_2136_2.view.weatherlist
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.gb.k_2135_2136_2.MainActivity
 import com.gb.k_2135_2136_2.R
 import com.gb.k_2135_2136_2.databinding.FragmentWeatherListBinding
+import com.gb.k_2135_2136_2.domain.Weather
+import com.gb.k_2135_2136_2.view.details.DetailsFragment
+import com.gb.k_2135_2136_2.view.details.OnItemClick
 import com.gb.k_2135_2136_2.viewmodel.AppState
 
-class WeatherListFragment : Fragment() {
+class WeatherListFragment : Fragment(), OnItemClick {
 
     companion object {
         fun newInstance() = WeatherListFragment()
@@ -72,9 +77,15 @@ class WeatherListFragment : Fragment() {
                 val result = appState.weatherData
             }
             is AppState.SuccessMulti ->{
-                binding.mainFragmentRecyclerView.adapter =WeatherListAdapter(appState.weatherList)
+                binding.mainFragmentRecyclerView.adapter =WeatherListAdapter(appState.weatherList,this)
             }
         }
+    }
+
+    override fun onItemClick(weather: Weather) {
+        requireActivity().supportFragmentManager.beginTransaction().hide(this).add(
+            R.id.container, DetailsFragment.newInstance(weather)
+        ).addToBackStack("").commit()
     }
 
 

@@ -3,11 +3,16 @@ package com.gb.k_2135_2136_2.view.weatherlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.ValueCallback
 import androidx.recyclerview.widget.RecyclerView
+import com.gb.k_2135_2136_2.MainActivity
+import com.gb.k_2135_2136_2.R
 import com.gb.k_2135_2136_2.databinding.FragmentWeatherListRecyclerItemBinding
 import com.gb.k_2135_2136_2.domain.Weather
+import com.gb.k_2135_2136_2.view.details.DetailsFragment
+import com.gb.k_2135_2136_2.view.details.OnItemClick
 
-class WeatherListAdapter(private val dataList:List<Weather>):RecyclerView.Adapter<WeatherListAdapter.WeatherViewHolder>() {
+class WeatherListAdapter(private val dataList:List<Weather>,private val callback: OnItemClick):RecyclerView.Adapter<WeatherListAdapter.WeatherViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         val binding= FragmentWeatherListRecyclerItemBinding.inflate(LayoutInflater.from(parent.context))
@@ -22,10 +27,13 @@ class WeatherListAdapter(private val dataList:List<Weather>):RecyclerView.Adapte
         return dataList.size
     }
 
-    class WeatherViewHolder(view: View):RecyclerView.ViewHolder(view){
+    inner class WeatherViewHolder(view: View):RecyclerView.ViewHolder(view){
         fun bind(weather: Weather){
             val binding= FragmentWeatherListRecyclerItemBinding.bind(itemView)
             binding.cityName.text = weather.city.name
+            binding.root.setOnClickListener {
+                callback.onItemClick(weather)
+            }
         }
     }
 }
