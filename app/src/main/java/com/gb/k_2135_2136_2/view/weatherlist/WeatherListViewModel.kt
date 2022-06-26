@@ -2,16 +2,15 @@ package com.gb.k_2135_2136_2.view.weatherlist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gb.k_2135_2136_2.model.Repository
-import com.gb.k_2135_2136_2.model.RepositoryLocalImpl
-import com.gb.k_2135_2136_2.model.RepositoryRemoteImpl
+import com.gb.k_2135_2136_2.model.*
 import com.gb.k_2135_2136_2.viewmodel.AppState
 import java.lang.Thread.sleep
 
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
     ViewModel() {
 
-    lateinit var repository: Repository
+    lateinit var repositoryMulti: RepositoryMany
+    lateinit var repositoryOne: RepositoryOne
 
     fun getLiveData():MutableLiveData<AppState>{
         choiceRepository()
@@ -19,20 +18,28 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
 
     private fun choiceRepository(){
-        repository = if(isConnection()){
+        repositoryOne = if(isConnection()){
             RepositoryRemoteImpl()
         }else{
             RepositoryLocalImpl()
         }
+        repositoryMulti =RepositoryLocalImpl()
     }
 
-    fun sentRequest() {
+    fun getWeatherListForRussia(){
+        sentRequest(Location.Russian)
+    }
+    fun getWeatherListForWorld(){
+        sentRequest(Location.World)
+    }
+
+    private fun sentRequest(location: Location) {
         //choiceRepository()
         liveData.value = AppState.Loading
-        if((0..3).random()==2){ //FIXME
+        if(false){ //FIXME
             liveData.postValue(AppState.Error(throw IllegalStateException("что-то пошлло не так")))
         }else{
-            liveData.postValue(AppState.Success(repository.getWeather(55.755826, 37.617299900000035)))
+            liveData.postValue(AppState.SuccessMulti(repositoryMulti.getListWeather(location)))
         }
 
     }
