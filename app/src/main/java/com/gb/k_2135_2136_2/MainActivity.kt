@@ -1,6 +1,8 @@
 package com.gb.k_2135_2136_2
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
 import com.gb.k_2135_2136_2.lesson3.Lesson3
@@ -20,6 +22,8 @@ internal class MainActivity : AppCompatActivity() {
         }
 
         Lesson3.fooAdv()
+       // Lesson3.someGenericView(Button(this))
+        Lesson3.someGenericView(LinearLayout(this))
     }
 
 }
