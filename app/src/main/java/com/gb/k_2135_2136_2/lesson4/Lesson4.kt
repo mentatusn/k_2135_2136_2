@@ -5,22 +5,21 @@ fun interface Speakable {
     fun say(string: String)
 
 
+
+}
+
+
+class Lesson4 {
+
+    val lesson1 = Lesson1()
+    val lesson2 = Lesson2()
+    val lesson3 = Lesson3()
+
+
     fun onCreate() {
 
-        val lesson1 = Lesson1()
-        val lesson2 = Lesson2()
-        val lesson3 = Lesson3()
-        val lesson4 = Lesson4()
 
-        lesson4.sayHiToLessonN(object : Speakable {
-            override fun say(string: String) {
-            }
-        })
 
-        lesson4.sayHiToLessonN {}
-        lesson4.sayHiToLessonN(lesson3)
-        lesson4.sayHiToLessonN(lesson2)
-        lesson4.sayHiToLessonN(lesson1)
 
 
         superHighOrderFunction { int: Int, int2: Int, str: String ->
@@ -63,10 +62,6 @@ fun interface Speakable {
         return resultLambda3
     }
 
-}
-
-
-class Lesson4 {
     fun sayHiToLessonN(speakable: Speakable) {
         speakable.say("Привет из 4 урока")
     }
