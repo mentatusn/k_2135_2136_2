@@ -3,13 +3,9 @@ package com.gb.k_2135_2136_2.view.weatherlist
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.ValueCallback
 import androidx.recyclerview.widget.RecyclerView
-import com.gb.k_2135_2136_2.MainActivity
-import com.gb.k_2135_2136_2.R
 import com.gb.k_2135_2136_2.databinding.FragmentWeatherListRecyclerItemBinding
 import com.gb.k_2135_2136_2.domain.Weather
-import com.gb.k_2135_2136_2.view.details.DetailsFragment
 import com.gb.k_2135_2136_2.view.details.OnItemClick
 
 class WeatherListAdapter(private val dataList:List<Weather>,private val callback: OnItemClick):RecyclerView.Adapter<WeatherListAdapter.WeatherViewHolder>() {

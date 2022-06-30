@@ -5,14 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
-import com.gb.k_2135_2136_2.databinding.FragmentWeatherListBinding
 import com.gb.k_2135_2136_2.domain.Weather
-import com.gb.k_2135_2136_2.view.weatherlist.WeatherListFragment
-import com.gb.k_2135_2136_2.view.weatherlist.WeatherListViewModel
-import com.gb.k_2135_2136_2.viewmodel.AppState
 
 class DetailsFragment : Fragment() {
 

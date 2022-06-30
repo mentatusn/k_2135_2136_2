@@ -2,10 +2,6 @@ package com.gb.k_2135_2136_2.lesson3
 
 import android.util.Log
 import android.view.ViewGroup
-import android.widget.Button
-import com.gb.k_2135_2136_2.lesson3.Lesson3.testJava
-import com.gb.k_2135_2136_2.lesson3.Lesson3.testJava2
-import com.gb.k_2135_2136_2.lesson3.Lesson3.testKotlin
 
 
 interface TestableKotlin {
@@ -16,7 +12,17 @@ interface TestableKotlin {
     }
 }
 
-object Lesson3 : TestableKotlin {
+class Lesson3 : TestableKotlin {
+
+
+    fun receiveMassage(string: String) {
+        Log.d("@@@", " получили $string")
+    }
+
+    val funField = fun (string: String):Int{
+        return Log.d("@@@", " получили $string")
+    }
+
 
     ///lateinit var i:Int
     var testJava: Test? = null
@@ -28,7 +34,7 @@ object Lesson3 : TestableKotlin {
     }
 
     fun startLessonGeneric() {
-        val startList:List<*>
+        val startList: List<*>
         startList = listOf<String>("I", "love", "Kotlin")
         var phraseList = listOf<String>("I", "love", "Kotlin")
         var numList = listOf<Int>(3, 5, 2, 9, 45, 23, 1)
@@ -79,13 +85,14 @@ object Lesson3 : TestableKotlin {
     private fun <MyT> someGeneric(input: MyT) {
         Log.d("@@@", input.toString())
     }
-    fun <V:ViewGroup> someGenericView(input: V) {
+
+    fun <V : ViewGroup> someGenericView(input: V) {
         Log.d("@@@", input.toString())
     }
 
     fun startLessonInterface() {
         //val callback = TestableKotlin { }
-        val callbackJava = TestableJava{}
+        val callbackJava = TestableJava {}
     }
 
     fun startLessonCollections() {
