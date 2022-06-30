@@ -12,7 +12,7 @@ interface TestableKotlin {
     }
 }
 
-class Lesson3 : TestableKotlin {
+class Lesson3Old : TestableKotlin {
 
 
     fun receiveMassage(string: String) {

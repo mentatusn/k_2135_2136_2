@@ -1,36 +1,27 @@
 package com.gb.k_2135_2136_2.lesson4
 
-import android.util.Log
-import com.gb.k_2135_2136_2.lesson3.Lesson3
+
+fun interface Speakable {
+    fun say(string: String)
+}
 
 class Lesson4 {
-    lateinit var lesson3:Lesson3
-
-    var funField = fun (string: String):Int{
-        for(i in 0..100){
-            if(i==44) return 0
-        }
-        return 1
+    fun sayHiToLessonN(speakable:Speakable) {
+        speakable.say("Привет из 4 урока")
     }
+}
 
-    val funFieldL = hack@{string: String ->
-        for(i in 0..100){
-            if(i==44) return@hack 0
-        }
-        return@hack 1
+class Lesson1 : Speakable {
+    override fun say(string: String) {
     }
+}
 
-    fun setMyFunField(block:(string: String)->Int){
-        this.funField = block
+class Lesson2 : Speakable {
+    override fun say(string: String) {
     }
+}
 
-    fun setMyFunFieldString(string: String){
-
-    }
-
-    fun sayHiToLesson3(string: String){
-        lesson3.receiveMassage(string)
-
-        lesson3.receiveMassage("$string funField")
+class Lesson3 : Speakable {
+    override fun say(string: String) {
     }
 }
