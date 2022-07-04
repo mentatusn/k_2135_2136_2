@@ -1,6 +1,5 @@
 package com.gb.k_2135_2136_2.utils
 
-import android.os.Build
 import com.gb.k_2135_2136_2.BuildConfig
 import com.gb.k_2135_2136_2.model.dto.WeatherDTO
 import com.gb.k_2135_2136_2.view.details.OnResponse
