@@ -1,26 +1,17 @@
 package com.gb.k_2135_2136_2.lesson5
 
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.gb.k_2135_2136_2.R
-import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
 import com.gb.k_2135_2136_2.databinding.ActivityWebviewBinding
-import com.gb.k_2135_2136_2.lesson4.Lesson4
 import com.gb.k_2135_2136_2.utils.getLines
-import com.gb.k_2135_2136_2.view.weatherlist.WeatherListFragment
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
-import java.net.URI
 import java.net.URL
-import java.util.stream.Collectors
-import kotlin.random.Random
 
 
 internal class WebViewActivity : AppCompatActivity() {

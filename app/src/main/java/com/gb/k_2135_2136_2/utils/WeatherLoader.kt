@@ -1,7 +1,8 @@
 package com.gb.k_2135_2136_2.utils
 
+import android.os.Build
+import com.gb.k_2135_2136_2.BuildConfig
 import com.gb.k_2135_2136_2.model.dto.WeatherDTO
-import com.gb.k_2135_2136_2.utils.getLines
 import com.gb.k_2135_2136_2.view.details.OnResponse
 import com.google.gson.Gson
 import java.io.BufferedReader
@@ -17,7 +18,7 @@ object WeatherLoader {// TODO HW 5 try catch
 
         myConnection = uri.openConnection() as HttpURLConnection
         myConnection.readTimeout = 5000
-        myConnection.addRequestProperty("X-Yandex-API-Key","ceae3d76-b634-4bfd-8ef5-25a327758ae9")
+        myConnection.addRequestProperty("X-Yandex-API-Key",BuildConfig.WEATHER_API_KEY)
         Thread{
             val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
             val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
@@ -31,7 +32,7 @@ object WeatherLoader {// TODO HW 5 try catch
 
         myConnection = uri.openConnection() as HttpURLConnection
         myConnection.readTimeout = 5000
-        myConnection.addRequestProperty("X-Yandex-API-Key","ceae3d76-b634-4bfd-8ef5-25a327758ae9")
+        myConnection.addRequestProperty("X-Yandex-API-Key",BuildConfig.WEATHER_API_KEY)
         Thread{
             val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
             val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
