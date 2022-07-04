@@ -12,6 +12,7 @@ import com.gb.k_2135_2136_2.R
 import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
 import com.gb.k_2135_2136_2.databinding.ActivityWebviewBinding
 import com.gb.k_2135_2136_2.lesson4.Lesson4
+import com.gb.k_2135_2136_2.utils.getLines
 import com.gb.k_2135_2136_2.view.weatherlist.WeatherListFragment
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -69,9 +70,7 @@ internal class WebViewActivity : AppCompatActivity() {
         }
     }
 
-    private fun getLines(reader: BufferedReader): String {
-        return reader.lines().collect(Collectors.joining("\n"))
-    }
+
 
 
 
