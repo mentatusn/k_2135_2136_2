@@ -32,7 +32,9 @@ class WeatherListFragment : Fragment(), OnItemClick {
         _binding = null
     }
 
-    lateinit var viewModel: WeatherListViewModel
+    private val viewModel: WeatherListViewModel by lazy {
+        ViewModelProvider(this).get(WeatherListViewModel::class.java)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +46,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(WeatherListViewModel::class.java)
+
         viewModel.getLiveData().observe(viewLifecycleOwner) { t -> renderData(t) }
 
         binding.weatherListFragmentFAB.setOnClickListener {
