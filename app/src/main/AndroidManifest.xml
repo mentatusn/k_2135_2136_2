@@ -37,6 +37,10 @@
             android:name=".lesson6.MyService"
             android:exported="true" />
 
+        <service
+            android:name=".view.details.DetailsServiceIntent"
+            android:exported="true" />
+
         <receiver
             android:name=".lesson6.MyBroadCastReceiver"
             android:enabled="true"

@@ -1,13 +1,22 @@
 package com.gb.k_2135_2136_2.view.details
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.model.dto.WeatherDTO
+import com.gb.k_2135_2136_2.utils.BUNDLE_CITY_KEY
+import com.gb.k_2135_2136_2.utils.BUNDLE_WEATHER_DTO_KEY
+import com.gb.k_2135_2136_2.utils.WAVE
 import com.gb.k_2135_2136_2.utils.WeatherLoader
 
 class DetailsFragment : Fragment() {
@@ -19,12 +28,27 @@ class DetailsFragment : Fragment() {
             return _binding!!
         }
 
+
+    val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+
+            Log.d("@@@", "onReceive ${binding.root}")
+            intent?.let {
+                it.getParcelableExtra<WeatherDTO>(BUNDLE_WEATHER_DTO_KEY)
+                    ?.let { watherDTO ->
+                        bindWeatherLocalWithWeatherDTO(weatherLocal, watherDTO)
+                    }
+            }
+        }
+    }
+
+    lateinit var weatherLocal: Weather
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
-
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,44 +69,40 @@ class DetailsFragment : Fragment() {
         }
 
         weather?.let { weatherLocal ->
-
+            this.weatherLocal = weatherLocal
             WeatherLoader.requestFirstVariant(
                 weatherLocal.city.lat,
                 weatherLocal.city.lon,
-                object : OnResponse{
+                object : OnResponse {
                     override fun onResponse(weather: WeatherDTO) {
 
                     }
                 }
             )
 
-            WeatherLoader.requestFirstVariant(
-                weatherLocal.city.lat,
-                weatherLocal.city.lon
-            ) { weatherDTO ->
-                bindWeatherLocalWithWeatherDTO(weatherLocal, weatherDTO)
-            }
-            WeatherLoader.requestSecondVariant(
-                weatherLocal.city.lat,
-                weatherLocal.city.lon
-            ) { weatherDTO ->
-                bindWeatherLocalWithWeatherDTO(weatherLocal, weatherDTO)
-            }
+            LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+                receiver,
+                IntentFilter(WAVE)
+            )
+
+            requireActivity().startService(
+                Intent(
+                    requireContext(),
+                    DetailsServiceIntent::class.java
+                ).apply {
+                    putExtra(BUNDLE_CITY_KEY, weatherLocal.city)
+                })
         }
-
-
     }
 
     private fun bindWeatherLocalWithWeatherDTO(
         weatherLocal: Weather,
         weatherDTO: WeatherDTO
     ) {
-        requireActivity().runOnUiThread{
-            renderData(weatherLocal.apply {
-                weatherLocal.feelsLike = weatherDTO.fact.feelsLike
-                weatherLocal.temperature = weatherDTO.fact.temp
-            })
-        }
+        renderData(weatherLocal.apply {
+            weatherLocal.feelsLike = weatherDTO.fact.feelsLike
+            weatherLocal.temperature = weatherDTO.fact.temp
+        })
     }
 
     // FIXME диссонанс this - как бы приемник?
@@ -113,7 +133,6 @@ class DetailsFragment : Fragment() {
             return fr
         }
     }
-
 
 
 }
