@@ -23,11 +23,35 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="calculate"
-                android:textSize="@dimen/feels_like_text_size" />
+                android:textSize="20sp" />
 
 
             <TextView
                 android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                tools:text="0"
+                android:textSize="@dimen/feels_like_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="calculate"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

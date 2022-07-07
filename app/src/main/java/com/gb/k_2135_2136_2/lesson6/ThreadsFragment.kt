@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.gb.k_2135_2136_2.databinding.FragmentThreadsBinding
 
@@ -27,16 +28,51 @@ class ThreadsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("@@@","${Thread.currentThread()}")
+        var counter =0
+
+
         binding.button.setOnClickListener {
             Thread{
-                Log.d("@@@","${Thread.currentThread()}")
+                //Log.d("@@@","${Thread.currentThread()}")
                 Thread.sleep(200L)
                 Handler(Looper.getMainLooper()).post(Runnable {
                     binding.textView.text= hardWork() // FIXME
                     binding.button.textSize =10f
+                    binding.mainContainer.addView(TextView(requireContext()).apply {
+                        text ="${counter++}"
+                        textSize =20f
+                    })
                 })
-
             }.start()
+        }
+
+
+        val mThread =MyThread()
+        mThread.start()
+        binding.button2.setOnClickListener {
+            mThread.handler?.let {
+                it.post{
+                    Log.d("@@@","${Thread.currentThread()} $counter")
+                    val result = hardWork()
+                    Handler(Looper.getMainLooper()).post(Runnable {
+                        binding.textView2.text=""
+                        binding.button2.textSize =10f
+                        binding.mainContainer.addView(TextView(requireContext()).apply {
+                            text ="${counter++}"
+                            textSize =20f
+                        })
+                    })
+                }
+            }
+        }
+    }
+
+    class MyThread:Thread(){
+        var handler:Handler?=null
+        override fun run() {
+            Looper.prepare()
+            handler = Handler()
+            Looper.loop()
         }
     }
 
