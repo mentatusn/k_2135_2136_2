@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import coil.load
+import coil.transform.CircleCropTransformation
+import com.bumptech.glide.Glide
+import com.gb.k_2135_2136_2.R
 import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsFragmentAppState
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsViewModel
+import com.squareup.picasso.Picasso
 
 class DetailsFragment : Fragment() {
 
@@ -47,7 +52,7 @@ class DetailsFragment : Fragment() {
 
         weather?.let { weatherLocal ->
             this.weatherLocal = weatherLocal
-            viewModel.getWeather(weatherLocal.city.lat,weatherLocal.city.lon)
+            viewModel.getWeather(weatherLocal.city.lat, weatherLocal.city.lon)
             viewModel.getLiveData().observe(viewLifecycleOwner) {
                 renderData(it)
             }
@@ -58,7 +63,7 @@ class DetailsFragment : Fragment() {
     // FIXME диссонанс this - как бы приемник?
     private fun renderData(detailsFragmentAppState: DetailsFragmentAppState) {
 
-        when(detailsFragmentAppState){
+        when (detailsFragmentAppState) {
             is DetailsFragmentAppState.Error -> {}
             DetailsFragmentAppState.Loading -> {}
             is DetailsFragmentAppState.Success -> {
@@ -68,6 +73,22 @@ class DetailsFragment : Fragment() {
                     temperatureValue.text = weatherDTO.fact.temp.toString()
                     feelsLikeValue.text = weatherDTO.fact.feelsLike.toString()
                     cityCoordinates.text = "${weatherLocal.city.lat}/${weatherLocal.city.lon}"
+
+
+                    //icon.load("https://c1.staticflickr.com/1/186/31520440226_175445c41a_b.jpg"){
+                    icon.load("https://i.pinimg.com/originals/de/1f/6f/de1f6f936d497684c4a023dcde8576cc.jpg\n"){
+                        error(R.drawable.ic_earth)
+                        placeholder(R.drawable.ic_launcher_background)
+                        transformations(CircleCropTransformation())
+                    }
+
+                    /*Glide.with(this.root)
+                        .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                        .into(icon)
+
+                    Picasso.get().load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+                        .into(icon)*/
+
                 }
             }
         }
@@ -95,7 +116,6 @@ class DetailsFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 
 
 }

@@ -22,6 +22,17 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Москва" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerInside"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cityName"
+            app:layout_constraintBottom_toTopOf="@id/cityCoordinates"
+            tools:text="Москва" />
+
         <TextView
             android:id="@+id/cityCoordinates"
             android:layout_width="wrap_content"
@@ -29,7 +40,7 @@
             android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cityName"
+            app:layout_constraintTop_toBottomOf="@+id/icon"
             tools:text="lt/ln: 55.755826, 37.617299900000035" />
 
         <TextView
