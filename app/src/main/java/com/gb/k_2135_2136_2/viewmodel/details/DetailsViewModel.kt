@@ -3,8 +3,8 @@ package com.gb.k_2135_2136_2.viewmodel.details
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.k_2135_2136_2.model.*
-import com.gb.k_2135_2136_2.viewmodel.citieslist.CityListFragmentAppState
-import kotlin.random.Random
+import com.gb.k_2135_2136_2.model.dto.WeatherDTO
+import java.io.IOException
 
 class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppState> = MutableLiveData<DetailsFragmentAppState>()) :
     ViewModel() {
@@ -17,7 +17,7 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
     }
 
     private fun choiceRepository() {
-        repository = when (1) {
+        repository = when (5) {
             1 -> {
                 RepositoryDetailsOkHttpImpl()
             }
@@ -37,8 +37,20 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
     fun getWeather(lat: Double, lon: Double) {
         choiceRepository()
         liveData.value = DetailsFragmentAppState.Loading
-        //liveData.postValue(DetailsFragmentAppState.Error(IllegalStateException("что-то пошлло не так")))
-        liveData.postValue(DetailsFragmentAppState.Success(repository.getWeather(lat, lon)))
+        repository.getWeather(lat, lon,callback)
+    }
+
+    private val callback = object :MyLargeSuperCallback{
+        override fun onResponse(weatherDTO: WeatherDTO) {
+            /*Handler(Looper.getMainLooper()).post {
+
+            }*/
+            liveData.postValue(DetailsFragmentAppState.Success(weatherDTO))
+        }
+
+        override fun onFailure(e: IOException) {
+            liveData.postValue(DetailsFragmentAppState.Error(e))
+        }
     }
 
     private fun isConnection(): Boolean {

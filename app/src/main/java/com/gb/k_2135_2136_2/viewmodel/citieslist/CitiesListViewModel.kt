@@ -2,7 +2,9 @@ package com.gb.k_2135_2136_2.viewmodel.citieslist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gb.k_2135_2136_2.model.*
+import com.gb.k_2135_2136_2.model.Location
+import com.gb.k_2135_2136_2.model.RepositoryCitiesList
+import com.gb.k_2135_2136_2.model.RepositoryCitiesListImpl
 import kotlin.random.Random
 
 class CitiesListViewModel(private val liveData: MutableLiveData<CityListFragmentAppState> = MutableLiveData<CityListFragmentAppState>()) :
