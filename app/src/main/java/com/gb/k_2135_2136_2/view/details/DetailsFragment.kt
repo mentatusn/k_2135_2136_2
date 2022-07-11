@@ -4,17 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import coil.load
-import coil.transform.CircleCropTransformation
-import com.bumptech.glide.Glide
-import com.gb.k_2135_2136_2.R
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsFragmentAppState
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsViewModel
-import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_webview.*
+
 
 class DetailsFragment : Fragment() {
 
@@ -76,11 +77,11 @@ class DetailsFragment : Fragment() {
 
 
                     //icon.load("https://c1.staticflickr.com/1/186/31520440226_175445c41a_b.jpg"){
-                    icon.load("https://i.pinimg.com/originals/de/1f/6f/de1f6f936d497684c4a023dcde8576cc.jpg\n"){
+                    /*icon.load(R.drawable.loadingfast){
                         error(R.drawable.ic_earth)
-                        placeholder(R.drawable.ic_launcher_background)
+                        placeholder(R.drawable.loadingfast)
                         transformations(CircleCropTransformation())
-                    }
+                    }*/
 
                     /*Glide.with(this.root)
                         .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
@@ -89,10 +90,29 @@ class DetailsFragment : Fragment() {
                     Picasso.get().load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
                         .into(icon)*/
 
+
+                    icon.loadUrl("https://yastatic.net/weather/i/icons/funky/dark/${weatherDTO.fact.icon}.svg")
                 }
             }
         }
     }
+
+    fun ImageView.loadUrl(url: String) {
+
+        val imageLoader = ImageLoader.Builder(this.context)
+            .componentRegistry{add(SvgDecoder(this@loadUrl.context))}
+            .build()
+
+        val request = ImageRequest.Builder(this.context)
+            .crossfade(true)
+            .crossfade(500)
+            .data(url)
+            .target(this)
+            .build()
+
+        imageLoader.enqueue(request)
+    }
+
 
     companion object {
         const val BUNDLE_WEATHER_EXTRA = "sgrrdfge"
