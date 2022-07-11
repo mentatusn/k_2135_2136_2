@@ -70,15 +70,6 @@ class DetailsFragment : Fragment() {
 
         weather?.let { weatherLocal ->
             this.weatherLocal = weatherLocal
-            WeatherLoader.requestFirstVariant(
-                weatherLocal.city.lat,
-                weatherLocal.city.lon,
-                object : OnResponse {
-                    override fun onResponse(weather: WeatherDTO) {
-
-                    }
-                }
-            )
 
             LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
                 receiver,
