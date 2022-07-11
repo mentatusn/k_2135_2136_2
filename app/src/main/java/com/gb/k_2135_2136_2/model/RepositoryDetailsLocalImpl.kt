@@ -24,5 +24,4 @@ class RepositoryDetailsLocalImpl:RepositoryDetails {
         return WeatherDTO(fact)
     }
 
-
 }
