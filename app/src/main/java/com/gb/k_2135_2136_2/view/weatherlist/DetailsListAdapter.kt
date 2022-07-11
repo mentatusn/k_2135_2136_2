@@ -8,7 +8,7 @@ import com.gb.k_2135_2136_2.databinding.FragmentWeatherListRecyclerItemBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.view.details.OnItemClick
 
-class WeatherListAdapter(private val dataList:List<Weather>,private val callback: OnItemClick):RecyclerView.Adapter<WeatherListAdapter.WeatherViewHolder>() {
+class DetailsListAdapter(private val dataList:List<Weather>, private val callback: OnItemClick):RecyclerView.Adapter<DetailsListAdapter.WeatherViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         val binding= FragmentWeatherListRecyclerItemBinding.inflate(LayoutInflater.from(parent.context))

@@ -11,13 +11,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
-import com.gb.k_2135_2136_2.lesson4.Lesson4
 import com.gb.k_2135_2136_2.lesson6.BUNDLE_KEY
 import com.gb.k_2135_2136_2.lesson6.MyBroadCastReceiver
 import com.gb.k_2135_2136_2.lesson6.MyService
 import com.gb.k_2135_2136_2.lesson6.ThreadsFragment
-import com.gb.k_2135_2136_2.view.weatherlist.WeatherListFragment
-import kotlin.random.Random
+import com.gb.k_2135_2136_2.view.weatherlist.CitiesListFragment
 
 
 internal class MainActivity : AppCompatActivity() {
@@ -33,7 +31,7 @@ internal class MainActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, WeatherListFragment.newInstance()).commit()
+                .replace(R.id.container, CitiesListFragment.newInstance()).commit()
         }
 
         startService(Intent(this,MyService::class.java).apply {

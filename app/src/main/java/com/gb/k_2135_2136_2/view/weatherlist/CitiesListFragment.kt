@@ -11,12 +11,13 @@ import com.gb.k_2135_2136_2.databinding.FragmentWeatherListBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.view.details.DetailsFragment
 import com.gb.k_2135_2136_2.view.details.OnItemClick
-import com.gb.k_2135_2136_2.viewmodel.AppState
+import com.gb.k_2135_2136_2.viewmodel.citieslist.CitiesListViewModel
+import com.gb.k_2135_2136_2.viewmodel.citieslist.CityListFragmentAppState
 
-class WeatherListFragment : Fragment(), OnItemClick {
+class CitiesListFragment : Fragment(), OnItemClick {
 
     companion object {
-        fun newInstance() = WeatherListFragment()
+        fun newInstance() = CitiesListFragment()
     }
 
     var isRussian = true
@@ -32,7 +33,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
         _binding = null
     }
 
-    lateinit var viewModel: WeatherListViewModel
+    lateinit var viewModel: CitiesListViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +45,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(WeatherListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CitiesListViewModel::class.java)
         viewModel.getLiveData().observe(viewLifecycleOwner) { t -> renderData(t) }
 
         binding.weatherListFragmentFAB.setOnClickListener {
@@ -61,22 +62,22 @@ class WeatherListFragment : Fragment(), OnItemClick {
     }
 
 
-    private fun renderData(appState: AppState) {
-        when (appState) {
-            is AppState.Error -> {
+    private fun renderData(cityListFragmentAppState: CityListFragmentAppState) {
+        when (cityListFragmentAppState) {
+            is CityListFragmentAppState.Error -> {
                 binding.showResult()
             }
-            AppState.Loading -> {
+            CityListFragmentAppState.Loading -> {
                 binding.loading()
             }
-            is AppState.SuccessOne -> {
+            is CityListFragmentAppState.SuccessOne -> {
                 binding.showResult()
-                val result = appState.weatherData
+                val result = cityListFragmentAppState.weatherData
             }
-            is AppState.SuccessMulti -> {
+            is CityListFragmentAppState.SuccessMulti -> {
                 binding.showResult()
                 binding.mainFragmentRecyclerView.adapter =
-                    WeatherListAdapter(appState.weatherList, this)
+                    DetailsListAdapter(cityListFragmentAppState.weatherList, this)
             }
         }
     }

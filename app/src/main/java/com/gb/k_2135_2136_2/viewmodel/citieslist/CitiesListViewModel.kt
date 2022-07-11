@@ -1,29 +1,23 @@
-package com.gb.k_2135_2136_2.view.weatherlist
+package com.gb.k_2135_2136_2.viewmodel.citieslist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.k_2135_2136_2.model.*
-import com.gb.k_2135_2136_2.viewmodel.AppState
 import kotlin.random.Random
 
-class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()) :
+class CitiesListViewModel(private val liveData: MutableLiveData<CityListFragmentAppState> = MutableLiveData<CityListFragmentAppState>()) :
     ViewModel() {
 
-    lateinit var repositoryMulti: RepositoryMany
-    lateinit var repositoryOne: RepositoryOne
+    lateinit var repositoryCitiesList: RepositoryCitiesList
+    //lateinit var repositoryOne: RepositoryOne
 
-    fun getLiveData(): MutableLiveData<AppState> {
+    fun getLiveData(): MutableLiveData<CityListFragmentAppState> {
         choiceRepository()
         return liveData
     }
 
     private fun choiceRepository() {
-        repositoryOne = if (isConnection()) {
-            RepositoryRemoteImpl()
-        } else {
-            RepositoryLocalImpl()
-        }
-        repositoryMulti = RepositoryLocalImpl()
+        repositoryCitiesList = RepositoryCitiesListImpl()
     }
 
     fun getWeatherListForRussia() {
@@ -36,13 +30,13 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     private fun sentRequest(location: Location) {
         //choiceRepository()
-        liveData.value = AppState.Loading
+        liveData.value = CityListFragmentAppState.Loading
         Thread {
             Thread.sleep(30L)
             if ((0..3).random(Random(System.currentTimeMillis())) == 10) {
-                liveData.postValue(AppState.Error(IllegalStateException("что-то пошлло не так")))
+                liveData.postValue(CityListFragmentAppState.Error(IllegalStateException("что-то пошлло не так")))
             } else {
-                liveData.postValue(AppState.SuccessMulti(repositoryMulti.getListWeather(location)))
+                liveData.postValue(CityListFragmentAppState.SuccessMulti(repositoryCitiesList.getListCities(location)))
             }
         }.start()
     }
