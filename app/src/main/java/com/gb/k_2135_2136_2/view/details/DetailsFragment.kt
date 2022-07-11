@@ -11,13 +11,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.gb.k_2135_2136_2.BuildConfig
 import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.model.dto.WeatherDTO
-import com.gb.k_2135_2136_2.utils.BUNDLE_CITY_KEY
-import com.gb.k_2135_2136_2.utils.BUNDLE_WEATHER_DTO_KEY
-import com.gb.k_2135_2136_2.utils.WAVE
-import com.gb.k_2135_2136_2.utils.WeatherLoader
+import com.gb.k_2135_2136_2.utils.*
+import com.google.gson.Gson
+import okhttp3.Call
+import okhttp3.OkHttpClient
+import okhttp3.Request
 
 class DetailsFragment : Fragment() {
 
@@ -48,7 +50,7 @@ class DetailsFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-    
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,18 +73,44 @@ class DetailsFragment : Fragment() {
         weather?.let { weatherLocal ->
             this.weatherLocal = weatherLocal
 
-            LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
+            /*LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
                 receiver,
                 IntentFilter(WAVE)
             )
-
             requireActivity().startService(
                 Intent(
                     requireContext(),
                     DetailsServiceIntent::class.java
                 ).apply {
                     putExtra(BUNDLE_CITY_KEY, weatherLocal.city)
-                })
+                })*/
+
+
+            val client = OkHttpClient()
+            val builder = Request.Builder()
+            builder.addHeader(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+            builder.url("https://api.weather.yandex.ru/v2/informers?lat=${weatherLocal.city.lat}&lon=${weatherLocal.city.lon}")
+            val request: Request = builder.build()
+            val call: Call = client.newCall(request)
+            Thread {
+                val response = call.execute()
+                if (response.isSuccessful) {
+                }
+                if (response.code in 200..299) {
+                    response.body?.let {
+                        val responseString = it.string()
+                        val weatherDTO = Gson().fromJson((responseString), WeatherDTO::class.java)
+                        weatherLocal.feelsLike = weatherDTO.fact.feelsLike
+                        weatherLocal.temperature = weatherDTO.fact.temp
+                        requireActivity().runOnUiThread {
+                            renderData(weatherLocal)
+                        }
+                        Log.d("@@@", "${responseString}")
+                            //Log.d("@@@", "${it.string()}") // FIXME что-то странное
+                    }
+                }
+            }.start()
+
         }
     }
 

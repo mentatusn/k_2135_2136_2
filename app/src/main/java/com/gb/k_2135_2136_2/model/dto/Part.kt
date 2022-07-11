@@ -22,7 +22,7 @@ data class Part(
     @SerializedName("polar")
     val polar: Boolean,
     @SerializedName("prec_mm")
-    val precMm: Int,
+    val precMm: Double,
     @SerializedName("prec_period")
     val precPeriod: Int,
     @SerializedName("prec_prob")
