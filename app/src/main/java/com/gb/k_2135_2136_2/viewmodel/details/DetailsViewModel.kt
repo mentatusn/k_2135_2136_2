@@ -1,10 +1,13 @@
 package com.gb.k_2135_2136_2.viewmodel.details
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gb.k_2135_2136_2.MyApp
 import com.gb.k_2135_2136_2.model.*
 import com.gb.k_2135_2136_2.model.dto.WeatherDTO
 import com.gb.k_2135_2136_2.model.retrofit.RepositoryDetailsRetrofitImpl
+import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
 import java.io.IOException
 
 class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppState> = MutableLiveData<DetailsFragmentAppState>()) :
@@ -18,7 +21,8 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
     }
 
     private fun choiceRepository() {
-        repository = when (2) {
+        val sp = MyApp.getMyApp().getSharedPreferences("erhrth", Context.MODE_PRIVATE)
+        repository = when (sp.getInt("rturtu",2)) {
             1 -> {
                 RepositoryDetailsOkHttpImpl()
             }
@@ -36,6 +40,9 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
 
 
     fun getWeather(lat: Double, lon: Double) {
+
+
+
         choiceRepository()
         liveData.value = DetailsFragmentAppState.Loading
         repository.getWeather(lat, lon,callback)

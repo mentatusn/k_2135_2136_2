@@ -1,5 +1,6 @@
 package com.gb.k_2135_2136_2.view.details
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,6 @@ class DetailsFragment : Fragment() {
     // TODO 5 HW  создать DetailsListViewModel + RepositoryRemoteImpl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         val weather = arguments?.let { arg ->
             arg.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA)

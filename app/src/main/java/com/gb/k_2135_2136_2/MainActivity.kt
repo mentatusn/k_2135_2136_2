@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.preference.PreferenceManager.getDefaultSharedPreferences
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +16,8 @@ import com.gb.k_2135_2136_2.lesson6.BUNDLE_KEY
 import com.gb.k_2135_2136_2.lesson6.MyBroadCastReceiver
 import com.gb.k_2135_2136_2.lesson6.MyService
 import com.gb.k_2135_2136_2.lesson6.ThreadsFragment
+import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
+import com.gb.k_2135_2136_2.utils.SP_KEY_IS_RUSSIAN
 import com.gb.k_2135_2136_2.view.weatherlist.CitiesListFragment
 
 
@@ -34,25 +37,23 @@ internal class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, CitiesListFragment.newInstance()).commit()
         }
 
-        startService(Intent(this,MyService::class.java).apply {
-            putExtra(BUNDLE_KEY,"Hello")
-        })
-
-        val receiver=MyBroadCastReceiver()
-        registerReceiver(receiver, IntentFilter("android.intent.action.AIRPLANE_MODE"))
-        registerReceiver(receiver, IntentFilter("myaction"))
+        val sp = getSharedPreferences(SP_DB_NAME_IS_RUSSIAN,Context.MODE_PRIVATE)
+        Log.d("@@@", localClassName)
+        val spActivity = getPreferences(Context.MODE_PRIVATE)// аналог getSharedPreferences("MainActivity.class",Context.MODE_PRIVATE)
+        val spApp = getDefaultSharedPreferences(this)// аналог getSharedPreferences(getPackageName(),Context.MODE_PRIVATE)
 
 
+        val isRussian = sp.getBoolean(SP_KEY_IS_RUSSIAN,true)
+        val editor = sp.edit()
+        editor.putBoolean(SP_KEY_IS_RUSSIAN,isRussian)
+        editor.apply()
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(object : BroadcastReceiver(){
-            override fun onReceive(context: Context?, intent: Intent?) {
-                Log.d("@@@"," onReceive ${Thread.currentThread()}")
-            }
-        }, IntentFilter("answer"))
+        sp.edit().apply {
+            putBoolean(SP_KEY_IS_RUSSIAN, isRussian)
+            apply()
+        }
 
-        sendBroadcast(Intent().apply {
-            action = "myaction"
-        })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
