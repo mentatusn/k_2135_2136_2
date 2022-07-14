@@ -4,16 +4,17 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gb.k_2135_2136_2.MyApp
+import com.gb.k_2135_2136_2.domain.City
+import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.model.*
-import com.gb.k_2135_2136_2.model.dto.WeatherDTO
-import com.gb.k_2135_2136_2.model.retrofit.RepositoryDetailsRetrofitImpl
-import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
+import com.gb.k_2135_2136_2.model.retrofit.RepositoryLocationToOneWeatherRetrofitImpl
 import java.io.IOException
 
 class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppState> = MutableLiveData<DetailsFragmentAppState>()) :
     ViewModel() {
 
-    lateinit var repository: RepositoryDetails
+    lateinit var repositoryLocationToOneWeather: RepositoryWeatherByCity
+    lateinit var repositoryWeatherAddable: RepositoryWeatherSave
 
     fun getLiveData(): MutableLiveData<DetailsFragmentAppState> {
         choiceRepository()
@@ -22,38 +23,72 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
 
     private fun choiceRepository() {
         val sp = MyApp.getMyApp().getSharedPreferences("erhrth", Context.MODE_PRIVATE)
-        repository = when (sp.getInt("rturtu",2)) {
-            1 -> {
-                RepositoryDetailsOkHttpImpl()
+        if (isConnection()) {
+            repositoryLocationToOneWeather = when (2) {
+                1 -> {
+                    RepositoryOkHttpImpl()
+                }
+                2 -> {
+                    RepositoryLocationToOneWeatherRetrofitImpl()
+                }
+                3 -> {
+                    RepositoryWeatherLoaderImpl()
+                }
+                4 -> {
+                    RepositoryRoomImpl()
+                }
+                else -> {
+                    RepositoryLocalImpl()
+                }
             }
-            2 -> {
-                RepositoryDetailsRetrofitImpl()
+
+            repositoryWeatherAddable = when (0) {
+                1 -> {
+                    RepositoryRoomImpl()
+                }
+                else -> {
+                    RepositoryRoomImpl()
+                }
             }
-            3 -> {
-                RepositoryDetailsWeatherLoaderImpl()
+        } else {
+            repositoryLocationToOneWeather = when (1) {
+                1 -> {
+                    RepositoryRoomImpl()
+                }
+                2 -> {
+                    RepositoryLocalImpl()
+                }
+                else -> {
+                    RepositoryLocalImpl()
+                }
             }
-            else -> {
-                RepositoryDetailsLocalImpl()
+            repositoryWeatherAddable = when (0) {
+                1 -> {
+                    RepositoryRoomImpl()
+                }
+                else -> {
+                    RepositoryRoomImpl()
+                }
             }
         }
+
+
     }
 
 
-    fun getWeather(lat: Double, lon: Double) {
-
-
-
-        choiceRepository()
+    fun getWeather(city: City) {
         liveData.value = DetailsFragmentAppState.Loading
-        repository.getWeather(lat, lon,callback)
+        repositoryLocationToOneWeather.getWeather(city, callback)
     }
 
-    private val callback = object :MyLargeSuperCallback{
-        override fun onResponse(weatherDTO: WeatherDTO) {
+    private val callback = object : CommonWeatherCallback {
+        override fun onResponse(weather: Weather) {
             /*Handler(Looper.getMainLooper()).post {
 
             }*/
-            liveData.postValue(DetailsFragmentAppState.Success(weatherDTO))
+            if (isConnection())
+                repositoryWeatherAddable.addWeather(weather)
+            liveData.postValue(DetailsFragmentAppState.Success(weather))
         }
 
         override fun onFailure(e: IOException) {
@@ -61,11 +96,13 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
         }
     }
 
-    private fun isConnection(): Boolean {
+
+
+    private fun isConnection(): Boolean {// TODO HW реализация
         return false
     }
 
-    override fun onCleared() { // TODO HW ***
+    override fun onCleared() {
         super.onCleared()
     }
 }

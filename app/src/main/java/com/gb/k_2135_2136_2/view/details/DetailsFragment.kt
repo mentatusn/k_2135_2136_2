@@ -1,6 +1,5 @@
 package com.gb.k_2135_2136_2.view.details
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsFragmentAppState
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsViewModel
-import kotlinx.android.synthetic.main.activity_webview.*
 
 
 class DetailsFragment : Fragment() {
@@ -27,7 +25,6 @@ class DetailsFragment : Fragment() {
             return _binding!!
         }
 
-    lateinit var weatherLocal: Weather
 
     private val viewModel by lazy {
         ViewModelProvider(this).get(DetailsViewModel::class.java)
@@ -51,17 +48,13 @@ class DetailsFragment : Fragment() {
             arg.getParcelable<Weather>(BUNDLE_WEATHER_EXTRA)
         }
 
-        weather?.let { weatherLocal ->
-            this.weatherLocal = weatherLocal
-            viewModel.getWeather(weatherLocal.city.lat, weatherLocal.city.lon)
+        weather?.let {
             viewModel.getLiveData().observe(viewLifecycleOwner) {
                 renderData(it)
             }
+            viewModel.getWeather(it.city)
         }
     }
-
-
-    // FIXME диссонанс this - как бы приемник?
     private fun renderData(detailsFragmentAppState: DetailsFragmentAppState) {
 
         when (detailsFragmentAppState) {
@@ -69,38 +62,21 @@ class DetailsFragment : Fragment() {
             DetailsFragmentAppState.Loading -> {}
             is DetailsFragmentAppState.Success -> {
                 with(binding) {
-                    val weatherDTO = detailsFragmentAppState.weatherData
-                    cityName.text = weatherLocal.city.name
-                    temperatureValue.text = weatherDTO.fact.temp.toString()
-                    feelsLikeValue.text = weatherDTO.fact.feelsLike.toString()
-                    cityCoordinates.text = "${weatherLocal.city.lat}/${weatherLocal.city.lon}"
-
-
-                    //icon.load("https://c1.staticflickr.com/1/186/31520440226_175445c41a_b.jpg"){
-                    /*icon.load(R.drawable.loadingfast){
-                        error(R.drawable.ic_earth)
-                        placeholder(R.drawable.loadingfast)
-                        transformations(CircleCropTransformation())
-                    }*/
-
-                    /*Glide.with(this.root)
-                        .load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
-                        .into(icon)
-
-                    Picasso.get().load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
-                        .into(icon)*/
-
-
-                    icon.loadUrl("https://yastatic.net/weather/i/icons/funky/dark/${weatherDTO.fact.icon}.svg")
+                    val weather = detailsFragmentAppState.weatherData
+                    cityName.text = weather.city.name
+                    temperatureValue.text = weather.temperature.toString()
+                    feelsLikeValue.text = weather.feelsLike.toString()
+                    cityCoordinates.text = "${weather.city.lat}/${weather.city.lon}"
+                    icon.loadUrl("https://yastatic.net/weather/i/icons/funky/dark/${weather.icon}.svg")
                 }
             }
         }
     }
 
-    fun ImageView.loadUrl(url: String) {
+    private fun ImageView.loadUrl(url: String) {
 
         val imageLoader = ImageLoader.Builder(this.context)
-            .componentRegistry{add(SvgDecoder(this@loadUrl.context))}
+            .componentRegistry { add(SvgDecoder(this@loadUrl.context)) }
             .build()
 
         val request = ImageRequest.Builder(this.context)

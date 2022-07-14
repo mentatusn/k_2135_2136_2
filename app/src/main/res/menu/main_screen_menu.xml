@@ -4,5 +4,10 @@
     <item
         android:id="@+id/menu_threads"
         android:title="@string/threads"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_history"
+        android:title="@string/history"
         app:showAsAction="always" />
 </menu>

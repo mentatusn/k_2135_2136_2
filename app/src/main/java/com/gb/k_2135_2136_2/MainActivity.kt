@@ -1,23 +1,17 @@
 package com.gb.k_2135_2136_2
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.preference.PreferenceManager.getDefaultSharedPreferences
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
-import com.gb.k_2135_2136_2.lesson6.BUNDLE_KEY
-import com.gb.k_2135_2136_2.lesson6.MyBroadCastReceiver
-import com.gb.k_2135_2136_2.lesson6.MyService
 import com.gb.k_2135_2136_2.lesson6.ThreadsFragment
 import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
 import com.gb.k_2135_2136_2.utils.SP_KEY_IS_RUSSIAN
+import com.gb.k_2135_2136_2.view.room.WeatherHistoryListFragment
 import com.gb.k_2135_2136_2.view.weatherlist.CitiesListFragment
 
 
@@ -53,7 +47,7 @@ internal class MainActivity : AppCompatActivity() {
             apply()
         }
 
-        val rows=  MyApp.getWeatherDatabase().weatherDao().getWeatherAll()
+
 
 
     }
@@ -69,6 +63,15 @@ internal class MainActivity : AppCompatActivity() {
                 supportFragmentManager.apply {
                     beginTransaction()
                         .add(R.id.container, ThreadsFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
+            R.id.menu_history -> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, WeatherHistoryListFragment())
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }

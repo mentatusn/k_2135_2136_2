@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gb.k_2135_2136_2.R
-import com.gb.k_2135_2136_2.databinding.FragmentWeatherListBinding
+import com.gb.k_2135_2136_2.databinding.FragmentCitiesListBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
 import com.gb.k_2135_2136_2.utils.SP_KEY_IS_RUSSIAN
@@ -25,8 +25,8 @@ class CitiesListFragment : Fragment(), OnItemClick {
 
     var isRussian = true
 
-    private var _binding: FragmentWeatherListBinding? = null
-    private val binding: FragmentWeatherListBinding
+    private var _binding: FragmentCitiesListBinding? = null
+    private val binding: FragmentCitiesListBinding
         get() {
             return _binding!!
         }
@@ -42,7 +42,7 @@ class CitiesListFragment : Fragment(), OnItemClick {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWeatherListBinding.inflate(inflater)
+        _binding = FragmentCitiesListBinding.inflate(inflater)
         return binding.root
     }
 
@@ -85,17 +85,17 @@ class CitiesListFragment : Fragment(), OnItemClick {
             is CityListFragmentAppState.SuccessMulti -> {
                 binding.showResult()
                 binding.mainFragmentRecyclerView.adapter =
-                    DetailsListAdapter(cityListFragmentAppState.weatherList, this)
+                    CitiesListAdapter(cityListFragmentAppState.weatherList, this)
             }
         }
     }
 
-    fun FragmentWeatherListBinding.loading() {
+    fun FragmentCitiesListBinding.loading() {
         this.mainFragmentLoadingLayout.visibility = View.VISIBLE
         this.weatherListFragmentFAB.visibility = View.GONE
     }
 
-    fun FragmentWeatherListBinding.showResult() {
+    fun FragmentCitiesListBinding.showResult() {
         this.mainFragmentLoadingLayout.visibility = View.GONE
         this.weatherListFragmentFAB.visibility = View.VISIBLE
     }
