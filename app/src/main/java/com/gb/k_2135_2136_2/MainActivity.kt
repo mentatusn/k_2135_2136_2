@@ -11,6 +11,7 @@ import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
 import com.gb.k_2135_2136_2.lesson6.ThreadsFragment
 import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
 import com.gb.k_2135_2136_2.utils.SP_KEY_IS_RUSSIAN
+import com.gb.k_2135_2136_2.view.contentprovider.ContentProviderFragment
 import com.gb.k_2135_2136_2.view.room.WeatherHistoryListFragment
 import com.gb.k_2135_2136_2.view.weatherlist.CitiesListFragment
 
@@ -72,6 +73,16 @@ internal class MainActivity : AppCompatActivity() {
                 supportFragmentManager.apply {
                     beginTransaction()
                         .replace(R.id.container, WeatherHistoryListFragment())
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
+
+            R.id.menu_content_provider-> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, (ContentProviderFragment()))
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }
