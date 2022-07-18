@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">k_2135_2136_2</string>
 
+    <string name="content_provider">Content provider</string>
+    <string name="authorities">weather.list.lesson9.provider</string>
+
+
     <string name="temperature_label">Температура</string>
     <string name="feels_like_label">Ощущается как</string>
     <string name="city_coordinates">lt/ln: %s, %s"</string>
@@ -8,6 +12,5 @@
     <string name="reload">Reload</string>
     <string name="threads">threads</string>
     <string name="history">history</string>
-    <string name="content_provider">content_provider</string>
 
 </resources>

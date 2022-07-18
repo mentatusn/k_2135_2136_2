@@ -26,6 +26,7 @@ import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsFragmentAppState
 import com.gb.k_2135_2136_2.viewmodel.details.DetailsViewModel
 import kotlinx.android.synthetic.main.fragment_details.*
+import kotlin.math.max
 
 
 class ContentProviderFragment : Fragment() {

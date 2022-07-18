@@ -14,3 +14,7 @@ const val ROOM_DB_NAME_WEATHER = "weather_db"
 
 const val SP_DB_NAME_IS_RUSSIAN = "IS_RUSSIAN"
 const val SP_KEY_IS_RUSSIAN = "wserrgewrg"
+
+const val ID = "id"
+const val NAME = "name"
+const val TEMPERATURE = "temperature"
