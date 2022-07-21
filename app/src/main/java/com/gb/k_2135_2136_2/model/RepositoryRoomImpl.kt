@@ -10,7 +10,11 @@ class RepositoryRoomImpl : RepositoryWeatherByCity, RepositoryWeatherSave,
     override fun getWeather(city: City, callback: CommonWeatherCallback) {
         callback.onResponse(
             MyApp.getWeatherDatabase().weatherDao().getWeatherByLocation(city.lat, city.lon).let {
-                convertHistoryEntityToWeather(it).last()
+                if(it.isNotEmpty()){
+                    convertHistoryEntityToWeather(it).last()
+                }else{
+                    Weather(city)//FIXME не всегда в room может быть погода
+                }
             })
     }
 

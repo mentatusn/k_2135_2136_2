@@ -99,7 +99,7 @@ class DetailsViewModel(private val liveData: MutableLiveData<DetailsFragmentAppS
 
 
     private fun isConnection(): Boolean {// TODO HW реализация
-        return false
+        return true
     }
 
     override fun onCleared() {

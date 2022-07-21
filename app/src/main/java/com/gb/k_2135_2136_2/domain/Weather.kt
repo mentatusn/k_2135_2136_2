@@ -7,8 +7,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Weather(
     val city: City,
-    var temperature: Int = 20,
-    var feelsLike: Int = 20,
+    var temperature: Int = -999,
+    var feelsLike: Int = -999,
     var icon: String="ovc_-ra"
 ) : Parcelable
 
