@@ -135,6 +135,7 @@ class CitiesListFragment : Fragment(), OnItemClick {
         val time = measureTimeMillis {
             Thread{
                 val address = geocoder.getFromLocation(location.latitude, location.longitude, 1)
+                locationManager.removeUpdates(locationListener)
                 onItemClick(Weather(City(address.first().locality,location.latitude, location.longitude)))
             }.start()
         }
@@ -220,7 +221,7 @@ class CitiesListFragment : Fragment(), OnItemClick {
     }
 
     override fun onItemClick(weather: Weather) {
-        locationManager.removeUpdates(locationListener)
+
         requireActivity().supportFragmentManager.beginTransaction().hide(this).add(
             R.id.container, DetailsFragment.newInstance(weather)
         ).addToBackStack("").commit()

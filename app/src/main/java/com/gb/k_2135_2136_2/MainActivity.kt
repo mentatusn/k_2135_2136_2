@@ -12,6 +12,7 @@ import com.gb.k_2135_2136_2.lesson6.ThreadsFragment
 import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
 import com.gb.k_2135_2136_2.utils.SP_KEY_IS_RUSSIAN
 import com.gb.k_2135_2136_2.view.contentprovider.ContentProviderFragment
+import com.gb.k_2135_2136_2.view.maps.MapsFragment
 import com.gb.k_2135_2136_2.view.room.WeatherHistoryListFragment
 import com.gb.k_2135_2136_2.view.weatherlist.CitiesListFragment
 
@@ -83,6 +84,16 @@ internal class MainActivity : AppCompatActivity() {
                 supportFragmentManager.apply {
                     beginTransaction()
                         .replace(R.id.container, (ContentProviderFragment()))
+                        .addToBackStack("")
+                        .commitAllowingStateLoss()
+                }
+                true
+            }
+
+            R.id.menu_google_maps-> {
+                supportFragmentManager.apply {
+                    beginTransaction()
+                        .replace(R.id.container, (MapsFragment()))
                         .addToBackStack("")
                         .commitAllowingStateLoss()
                 }
