@@ -21,7 +21,8 @@ class MyApp : Application() {
                     getMyApp(),
                     WeatherDatabase::class.java,
                     ROOM_DB_NAME_WEATHER
-                ).allowMainThreadQueries() // TODO HW убрать allowMainThreadQueries
+                )
+                    .allowMainThreadQueries() // TODO HW убрать allowMainThreadQueries
                     .build()
             }
             return weatherDatabase!!
