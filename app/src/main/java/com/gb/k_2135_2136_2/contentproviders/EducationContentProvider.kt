@@ -6,7 +6,6 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
-import androidx.lifecycle.Transformations.map
 import com.gb.k_2135_2136_2.MyApp.Companion.getWeatherDatabase
 import com.gb.k_2135_2136_2.R
 import com.gb.k_2135_2136_2.model.room.WeatherEntity

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "15527378140",
+    "project_id": "augmented-ward-357019",
+    "storage_bucket": "augmented-ward-357019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15527378140:android:b6bb1a8ffb96ae93c18819",
+        "android_client_info": {
+          "package_name": "com.gb.k_2135_2136_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15527378140-l4oo29prnsg36j5h5rjghngejbkn667j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gb.k_2135_2136_2",
+            "certificate_hash": "425b6d86593993ae77eb6d4068ee6771ee777dc2"
+          }
+        },
+        {
+          "client_id": "15527378140-bdhqoume5sfm642gni8kke02sc4n11h1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2XN5SqICw6aot2WYSrXCCTATA02W9uiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15527378140-bdhqoume5sfm642gni8kke02sc4n11h1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

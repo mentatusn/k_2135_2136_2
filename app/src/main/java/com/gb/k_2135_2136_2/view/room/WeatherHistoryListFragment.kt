@@ -11,7 +11,6 @@ import com.gb.k_2135_2136_2.databinding.FragmentWeatherHistoryListBinding
 import com.gb.k_2135_2136_2.domain.Weather
 import com.gb.k_2135_2136_2.view.details.DetailsFragment
 import com.gb.k_2135_2136_2.view.details.OnItemClick
-import com.gb.k_2135_2136_2.view.weatherlist.CitiesListAdapter
 import com.gb.k_2135_2136_2.viewmodel.weatherhistorylist.WeatherHistoryListFragmentAppState
 import com.gb.k_2135_2136_2.viewmodel.weatherhistorylist.WeatherHistoryListViewModel
 

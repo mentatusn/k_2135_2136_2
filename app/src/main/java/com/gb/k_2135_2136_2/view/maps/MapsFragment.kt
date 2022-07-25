@@ -2,23 +2,18 @@ package com.gb.k_2135_2136_2.view.maps
 
 import android.graphics.Color
 import android.location.Geocoder
-import android.location.Location
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.gb.k_2135_2136_2.R
-import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
 import com.gb.k_2135_2136_2.databinding.FragmentMapsUiBinding
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-import kotlinx.android.synthetic.main.fragment_maps.*
 
 class MapsFragment : Fragment() {
 

@@ -1,6 +1,5 @@
 package com.gb.k_2135_2136_2.model.room
 
-import android.graphics.drawable.Icon
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.gb.k_2135_2136_2.R

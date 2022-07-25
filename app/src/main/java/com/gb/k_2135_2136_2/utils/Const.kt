@@ -18,3 +18,13 @@ const val SP_KEY_IS_RUSSIAN = "wserrgewrg"
 const val ID = "id"
 const val NAME = "name"
 const val TEMPERATURE = "temperature"
+
+/**********
+    FCM
+ ********/
+const val CHANNEL_HIGH_ID = "channel_we3tw43"
+const val NOTIFICATION_ID1 = 1
+
+const val NOTIFICATION_KEY_TITLE = "myTitle"
+const val NOTIFICATION_KEY_BODY = "myBody"
+/**********/

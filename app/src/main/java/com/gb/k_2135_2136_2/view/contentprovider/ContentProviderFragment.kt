@@ -10,23 +10,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import coil.ImageLoader
-import coil.decode.SvgDecoder
-import coil.request.ImageRequest
 import com.gb.k_2135_2136_2.databinding.FragmentContentProviderBinding
-import com.gb.k_2135_2136_2.databinding.FragmentDetailsBinding
-import com.gb.k_2135_2136_2.domain.Weather
-import com.gb.k_2135_2136_2.viewmodel.details.DetailsFragmentAppState
-import com.gb.k_2135_2136_2.viewmodel.details.DetailsViewModel
-import kotlinx.android.synthetic.main.fragment_details.*
-import kotlin.math.max
 
 
 class ContentProviderFragment : Fragment() {
