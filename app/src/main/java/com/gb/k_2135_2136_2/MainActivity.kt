@@ -1,16 +1,16 @@
 package com.gb.k_2135_2136_2
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import android.preference.PreferenceManager.getDefaultSharedPreferences
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.gb.k_2135_2136_2.databinding.ActivityMainBinding
 import com.gb.k_2135_2136_2.lesson6.ThreadsFragment
-import com.gb.k_2135_2136_2.utils.SP_DB_NAME_IS_RUSSIAN
-import com.gb.k_2135_2136_2.utils.SP_KEY_IS_RUSSIAN
 import com.gb.k_2135_2136_2.view.contentprovider.ContentProviderFragment
 import com.gb.k_2135_2136_2.view.maps.MapsFragment
 import com.gb.k_2135_2136_2.view.room.WeatherHistoryListFragment
@@ -33,24 +33,40 @@ internal class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, CitiesListFragment.newInstance()).commit()
         }
 
-        val sp = getSharedPreferences(SP_DB_NAME_IS_RUSSIAN,Context.MODE_PRIVATE)
-        Log.d("@@@", localClassName)
-        val spActivity = getPreferences(Context.MODE_PRIVATE)// аналог getSharedPreferences("MainActivity.class",Context.MODE_PRIVATE)
-        val spApp = getDefaultSharedPreferences(this)// аналог getSharedPreferences(getPackageName(),Context.MODE_PRIVATE)
+        pushNotification("title","body")
+    }
 
+    val CHANNEL_HIGH_ID = "channel_we3tw43"
+    val CHANNEL_LOW_ID = "channel_rey"
+    val NOTIFICATION_ID1 = 1
+    val NOTIFICATION_ID2 = 1
 
-        val isRussian = sp.getBoolean(SP_KEY_IS_RUSSIAN,true)
-        val editor = sp.edit()
-        editor.putBoolean(SP_KEY_IS_RUSSIAN,isRussian)
-        editor.apply()
+    private fun pushNotification(title:String, body:String){
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        sp.edit().apply {
-            putBoolean(SP_KEY_IS_RUSSIAN, isRussian)
-            apply()
+        val notification = NotificationCompat.Builder(this,CHANNEL_HIGH_ID).apply {
+            setContentTitle(title)
+            setContentText(body)
+            setSmallIcon(R.drawable.ic_kotlin_logo)
+            priority = NotificationCompat.PRIORITY_MAX
+            //intent = PendingIntent() TODO HW по клику на push - открыть MainActivity
         }
 
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            val channelHigh = NotificationChannel(CHANNEL_HIGH_ID,CHANNEL_HIGH_ID,NotificationManager.IMPORTANCE_HIGH)
+            channelHigh.description = "Канал для бла бла бла"
+            notificationManager.createNotificationChannel(channelHigh)
+        }
+
+        notificationManager.notify(NOTIFICATION_ID1,notification.build())
 
 
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            val channelLow = NotificationChannel(CHANNEL_LOW_ID,CHANNEL_LOW_ID,NotificationManager.IMPORTANCE_LOW)
+            channelLow.description = "Канал LOW для бла бла бла"
+            notificationManager.createNotificationChannel(channelLow)
+        }
+        notificationManager.notify(NOTIFICATION_ID2,notification.build())
 
     }
 
