@@ -16,12 +16,12 @@ android {
         viewBinding = true
     }
 
-    buildTypes.each {
+    /*buildTypes.each { //FIXME
         Properties properties = new Properties()
         properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
         def apiKey  = properties.getProperty("yandex_weather_api_key", "")
         it.buildConfigField "String", "WEATHER_API_KEY", apiKey
-    }
+    }*/
 
 
     defaultConfig {
@@ -35,9 +35,47 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
+    signingConfigs {
+        sdfgrsdg {
+            Properties properties = new Properties()
+            properties.load(rootProject.file("passwordSdfgrsdg.properties").newDataInputStream())
+            def password = properties.getProperty("password") // FIXME
+            storeFile file("sdfgrsdg.jks")
+            storePassword = password
+            keyAlias 'a'
+            keyPassword =password
+        }
+
         release {
-            minifyEnabled false
+            Properties properties = new Properties()
+            properties.load(rootProject.file("passwordRelease.properties").newDataInputStream())
+            def password = properties.getProperty("password") // FIXME
+            storeFile file("release.jks")
+            storePassword = password
+            keyAlias 'a'
+            keyPassword =password
+        }
+    }
+
+
+
+    buildTypes {
+
+        sdfgrsdg {
+            signingConfig = signingConfigs.sdfgrsdg
+            multiDexEnabled true // больше 65536 методов
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug{
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            signingConfig = signingConfigs.release
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,6 +85,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    flavorDimensions 'version'
+    productFlavors {
+        PRO {
+            dimension 'version'
+        }
+        FREE {
+            dimension 'version'
+        }
     }
 }
 

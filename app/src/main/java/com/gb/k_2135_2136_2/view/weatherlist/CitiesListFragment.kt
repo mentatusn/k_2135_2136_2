@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.gb.k_2135_2136_2.MyApp
 import com.gb.k_2135_2136_2.R
 import com.gb.k_2135_2136_2.databinding.FragmentCitiesListBinding
 import com.gb.k_2135_2136_2.domain.City

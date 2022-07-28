@@ -21,7 +21,7 @@ class RepositoryLocationToOneWeatherRetrofitImpl : RepositoryWeatherByCity {
         retrofitImpl.addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         val api = retrofitImpl.build().create(WeatherAPI::class.java)
         //api.getWeather(BuildConfig.WEATHER_API_KEY,lat,lon).execute() // синхронный запрос
-        api.getWeather(BuildConfig.WEATHER_API_KEY,city.lat,city.lon).enqueue(object :Callback<WeatherDTO>{
+        api.getWeather("44ce48ce-54e0-4425-a528-474919b19e2b",city.lat,city.lon).enqueue(object :Callback<WeatherDTO>{
             override fun onResponse(call: Call<WeatherDTO>, response: Response<WeatherDTO>) {
                 // response.raw().request // тут есть информация - а кто же нас вызвал
                 if(response.isSuccessful&&response.body()!=null){

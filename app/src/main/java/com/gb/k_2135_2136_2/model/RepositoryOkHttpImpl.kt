@@ -13,7 +13,7 @@ class RepositoryOkHttpImpl:RepositoryWeatherByCity {
     override fun getWeather(city: City, callback: CommonWeatherCallback) {
         val client = OkHttpClient()
         val builder = Request.Builder()
-        builder.addHeader(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+        builder.addHeader(YANDEX_API_KEY, "44ce48ce-54e0-4425-a528-474919b19e2b")
         builder.url("https://api.weather.yandex.ru/v2/informers?lat=${city.lat}&lon=${city.lon}")
         val request: Request = builder.build()
         val call: Call = client.newCall(request)

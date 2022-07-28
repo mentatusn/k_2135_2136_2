@@ -21,7 +21,7 @@ class RepositoryWeatherLoaderImpl: RepositoryWeatherByCity {
             myConnection = uri.openConnection() as HttpsURLConnection
             try {
                 myConnection.readTimeout = 5000
-                myConnection.addRequestProperty(YANDEX_API_KEY, BuildConfig.WEATHER_API_KEY)
+                myConnection.addRequestProperty(YANDEX_API_KEY, "44ce48ce-54e0-4425-a528-474919b19e2b")
 
                 val reader = BufferedReader(InputStreamReader(myConnection.inputStream))
                 val weatherDTO = Gson().fromJson(getLines(reader), WeatherDTO::class.java)
