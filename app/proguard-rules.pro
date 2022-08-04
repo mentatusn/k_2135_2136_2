@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class com.gb.k_2135_2136_2.domain.** {*;}
+-keep class com.gb.k_2135_2136_2.model.dto.** {*;}

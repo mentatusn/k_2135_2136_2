@@ -47,6 +47,7 @@ android {
         }
 
         release {
+
             Properties properties = new Properties()
             properties.load(rootProject.file("passwordRelease.properties").newDataInputStream())
             def password = properties.getProperty("password") // FIXME
@@ -74,6 +75,7 @@ android {
         }
 
         release {
+            //debuggable true
             signingConfig = signingConfigs.release
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
